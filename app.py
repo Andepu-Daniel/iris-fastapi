@@ -17,7 +17,7 @@ class IrisInput(BaseModel):
     petal_length: float
     petal_width: float
 
-# Home route ddsdsd
+# Home route and
 @app.get("/")
 async def home(): 
     return {"message": "Welcome to Iris API"}
