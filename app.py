@@ -1,15 +1,20 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import pickle
 import numpy as np
 
-# Load the trained model
-with open("model.pkl", "rb") as model_file:
-    model = pickle.load(model_file)
 
 # Initialize FastAPI app
 app = FastAPI()
 
+model = None
+
+@app.on_event("startup")
+async def load_model():
+    global model
+    with open("model.pkl", "rb") as model_file:
+        model = pickle.load(model_file)
+        
 # Input data structure
 class IrisInput(BaseModel):
     sepal_length: float
